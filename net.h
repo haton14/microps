@@ -24,21 +24,26 @@
 #define NET_DEVICE_STATE(x) (NET_DEVICE_IS_UP(x) ? "up" : "down")
 
 struct  net_device {
-    struct  net_device *next;
+    struct  net_device *next; // 次のデバイスへのポインタ
     unsigned int index;
     char name[IFNAMSIZ];
-    uint16_t type;
+    uint16_t type; // デバイスタイプ NET_DEVICE_TYPE_XXXのこと
+    /*
+     * maximum transmission unit.
+     * 一度に転送できるデータのパケットの最大サイズ。
+     * パケットがMTUより大きい場合フラグメント化（細分化）される。
+     */
     uint16_t mtu;
-    uint16_t flags;
+    uint16_t flags; // 各種フラグ
     uint16_t hlen; /* header length */
     uint16_t alen; /* address length */
     uint8_t addr[NET_DEVICE_ADDR_LEN];
-    union {
+    union { // デバイスのハードウェアアドレスなど
         uint8_t peer[NET_DEVICE_ADDR_LEN];
         uint8_t broadcast[NET_DEVICE_ADDR_LEN];
     };
-    struct net_device_ops *ops;
-    void *priv;
+    struct net_device_ops *ops; // デバイスドライバに実装されている関数が設定された struct net_device_opsへのポインタ
+    void *priv; // デバイスドライバが使うプライベートなデータへのポインタ
 };
 
 struct net_device_ops {
