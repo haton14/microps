@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "stdint.h": "c",
+        "pthread.h": "c",
+        "stddef.h": "c"
+    }
+}
