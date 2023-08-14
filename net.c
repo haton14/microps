@@ -30,7 +30,7 @@ net_device_register(struct net_device *dev)
     static unsigned int index = 0;
 
     dev->index = index++; // Goだと dev.index = index; index++;
-    sprintf(dev->name, sizeof(dev->name), "net%d", dev->index);
+    snprintf(dev->name, sizeof(dev->name), "net%d", dev->index);
     dev->next = devices; // 前のデバイスをnextに入れる
     devices = dev; // 今のデバイスをデバイスリストの先頭に入れる
     infof("registered, dev=%s, type=ox%04x", dev->name, dev->type);
